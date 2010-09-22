@@ -149,15 +149,18 @@ nnoremap <C-Right> :silent!cp<CR>
 nnoremap <C-Left> :silent!cn<CR>
 
 " Menu for fugitive
-amenu GIT.log <ESC>:silent!Glog<CR>
-amenu GIT.real_log <ESC>:silent Git log & pause<CR>
+amenu &GIT.&log <ESC>:silent!Glog<CR>
+amenu &GIT.real_log <ESC>:silent Git log & pause<CR>
 
-amenu GIT.diff <ESC>:silent!Gdiff<CR>
-amenu GIT.real_diff <ESC>:silent Git diff & pause<CR>
-amenu GIT.real_diff_HEAD <ESC>:silent Git diff HEAD & pause<CR>
+amenu &GIT.diff <ESC>:silent!Gdiff<CR>
+amenu &GIT.real_&diff <ESC>:silent Git diff & pause<CR>
+amenu &GIT.real_diff_&HEAD <ESC>:silent Git diff HEAD & pause<CR>
 
-amenu GIT.status <ESC>:silent!Gstatus<CR>
-amenu GIT.real_status <ESC>:silent Git status & pause<CR>
+amenu &GIT.&status <ESC>:silent!Gstatus<CR>
+amenu &GIT.real_status <ESC>:silent Git status & pause<CR>
+
+" Status bar for fugitive
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 """""""""""""""""""""""""""""""""""""""
 " Related to programming competitions "
