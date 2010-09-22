@@ -133,6 +133,10 @@ nnoremap <Right> <C-w>l
 nnoremap <Space> <PageDown>
 nnoremap <BS> <PageUp>
 
+" Ctrl+space for next tag
+nnoremap <C-Space> <C-PageDown>
+nnoremap <C-BS> <C-PageUp>
+
 " Use system clipboard on windows
 set clipboard=unnamed
 
@@ -143,12 +147,16 @@ let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
 " Add menu for NERDtree
 amenu NERDtree.m_tc :NERDTree m:\tc\<CR>
 amenu NERDtree.python :NERDTree c:\py\<CR>
+amenu NERDtree.nodejs :NERDTree m:\github.com\emiraga\<CR>
 
 " Some keyboard shortcuts for fugitive (GIT wrapper for vim)
 nnoremap <C-Right> :silent!cp<CR>
 nnoremap <C-Left> :silent!cn<CR>
 
 " Menu for fugitive
+amenu &GIT.&write <ESC>:silent!Gwrite<CR>
+amenu &GIT.&commit <ESC>:silent!Gcommit<CR>
+amenu &GIT.&read <ESC>:silent!Gread<CR>
 amenu &GIT.&log <ESC>:silent!Glog<CR>
 amenu &GIT.real_log <ESC>:silent Git log & pause<CR>
 
