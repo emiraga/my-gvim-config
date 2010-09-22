@@ -3,3 +3,4 @@ http://github.com/scrooloose/nerdcommenter
 http://github.com/mileszs/ack.vim
 http://github.com/msanders/snipmate.vim
 http://vim.wikia.com/wiki/Highlight_multiple_words
+http://github.com/tpope/vim-fugitive

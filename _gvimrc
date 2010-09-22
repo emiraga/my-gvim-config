@@ -105,6 +105,10 @@ nnoremap k gj
 nnoremap l gk
 nnoremap ; l
 
+" Allow proper Yank + movement
+nnoremap yk yj
+nnoremap yl yk
+
 " Some abbreviations, misspellings
 abbreviate teh the
 abbreviate itn int
@@ -139,6 +143,21 @@ let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
 " Add menu for NERDtree
 amenu NERDtree.m_tc :NERDTree m:\tc\<CR>
 amenu NERDtree.python :NERDTree c:\py\<CR>
+
+" Some keyboard shortcuts for fugitive (GIT wrapper for vim)
+nnoremap <C-Right> :silent!cp<CR>
+nnoremap <C-Left> :silent!cn<CR>
+
+" Menu for fugitive
+amenu GIT.log <ESC>:silent!Glog<CR>
+amenu GIT.real_log <ESC>:silent Git log & pause<CR>
+
+amenu GIT.diff <ESC>:silent!Gdiff<CR>
+amenu GIT.real_diff <ESC>:silent Git diff & pause<CR>
+amenu GIT.real_diff_HEAD <ESC>:silent Git diff HEAD & pause<CR>
+
+amenu GIT.status <ESC>:silent!Gstatus<CR>
+amenu GIT.real_status <ESC>:silent Git status & pause<CR>
 
 """""""""""""""""""""""""""""""""""""""
 " Related to programming competitions "
