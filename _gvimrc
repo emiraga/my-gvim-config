@@ -1,0 +1,208 @@
+if has('gui_running')
+    " Maximize window on open
+    au GUIEnter * simalt ~x
+    
+    " Set font
+    set guifont=peep:b
+    "set guifont=Terminal:bh14
+endif
+
+" Pathogen config needs this
+filetype off
+" call pathogen#runtime_append_all_bundles()
+filetype plugin indent on
+
+" Remove compatibility with old versions
+set nocompatible
+
+" Security issues
+set modelines=0
+
+" Better colors
+syntax enable
+colorscheme pablo 
+
+" Show numbers
+set number
+" set relativenumber " weird numbers
+
+" Don't write backup files
+set nobackup
+set nowritebackup
+
+" Nice tabs, tabs to spaces conversion
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+" Make things better, according to http://stevelosh.com/blog/2010/09/coming-home-to-vim/
+set encoding=utf-8
+set scrolloff=3
+set autoindent
+set showmode
+set showcmd
+set hidden
+set wildmenu
+set wildmode=list:longest
+" set visualbell " blink screen
+set noeb
+" set cursorline " highlight current line
+set ttyfast
+set ruler
+set backspace=indent,eol,start
+set laststatus=2
+" set undofile " save more undo files
+
+" Set leader key, originally "g" now it is ","
+let mapleader = ","
+
+" Smart searching
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set hlsearch
+nnoremap <leader><space> :noh<cr>
+nnoremap <tab> %
+vnoremap <tab> %
+
+" Never, ever do 'set showmatch'
+
+" Handle long lines correctly
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+set colorcolumn=80
+
+" New user, disable arrow keys
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+"inoremap <up> <nop>
+"inoremap <down> <nop>
+"inoremap <left> <nop>
+"inoremap <right> <nop>
+
+nnoremap j gj
+nnoremap k gk
+
+" Save on loosing focus
+au FocusLost * :wa
+
+" Disable F1 help key
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" Shift movement keys
+nnoremap j h
+nnoremap k gj
+nnoremap l gk
+nnoremap ; l
+
+" Some abbreviations, misspellings
+abbreviate teh the
+abbreviate itn int
+abbreviate adn and
+
+" When reach end of line, keep moving the cursor.
+set whichwrap=h,l,~,[,]
+
+" Move through split windows using arrow keys
+nnoremap <Left> <C-w>h
+nnoremap <Down> <C-w>j
+nnoremap <Up> <C-w>k
+nnoremap <Right> <C-w>l
+
+" In insert mode
+"inoremap <Left> <esc><C-w>ha
+"inoremap <Down> <esc><C-w>ja
+"inoremap <Up> <esc><C-w>ka
+"inoremap <Right> <esc><C-w>la
+
+" Use space/backspace, for Page-down/Page-up
+nnoremap <Space> <PageDown>
+nnoremap <BS> <PageUp>
+
+" Use system clipboard on windows
+set clipboard=unnamed
+
+" NERD Tree
+map <F2> :NERDTreeToggle<cr>
+let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
+
+" Add menu for NERDtree
+amenu NERDtree.m_tc :NERDTree m:\tc\<CR>
+amenu NERDtree.python :NERDTree c:\py\<CR>
+
+"""""""""""""""""""""""""""""""""""""""
+" Related to programming competitions "
+"""""""""""""""""""""""""""""""""""""""
+
+" Load menu with all available snippets
+source ~/vimfiles/snippetsMenu
+
+" Highlight elements from template, plugin
+source ~/vimfiles/snippetsHighlight
+
+" Highlights certain words with red color, plugin
+Hi 1 \<\(D\|Dv\|Da\|D2\|D3\|D4\|D5\|sleep\|assert\)\>
+
+" Error marker plugin
+let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat
+
+" F4 - background compile a file
+map <silent><F4> :update<CR>:silent make %.exe<CR>
+
+" F5 - Compile a file and run in foreground, wait for "pause"
+map <F5> :update<CR>:silent !make %.exe && %.exe \|\| echo run \| gdb -q %.exe & pause<CR>
+
+" Leader,g - Compile a file and run with debugger, wait for "pause"
+map <leader>d :update<CR>:silent !make %.exe && gdb -q %.exe<CR>
+
+" Contents of a Makefile (without <code> tags)
+"
+"<code>
+"%.exe : %
+"       g++ -D MYCOMP -g -lm $< -o $@
+"</code>
+"
+" Note: I use custom define MYCOMP. (See: vimfiles/add_to_template.cpp)
+" Node2: That is an actual TAB character, no spaces.
+
+"""""""""""""""""
+" LEADER MAPING "
+"""""""""""""""""
+
+" strip all trailing whitespace in the current file so I can clean things up quickly
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" I use Ack a lot (described below), so I mapped a leader key for it:
+nnoremap <leader>a :Ack
+
+" I work with HTML often, so I have ,ft mapped to a “fold tag” function:
+nnoremap <leader>ft Vatzf
+
+" I also work with Nick Sergeant and he likes his CSS properties sorted, so here’s a ,S mapping that sorts them for me:
+nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+" This next mapping imitates TextMates Ctrl+Q function to re-hardwrap paragraphs of text:
+nnoremap <leader>q gqip
+
+" I have a ,v mapping to reselect the text that was just pasted so I can perform commands (like indentation) on it:
+nnoremap <leader>v V`]
+
+" This last mapping lets me quickly open up my ~/.vimrc file in a vertically split window so I can add new things to it on the fly.
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
+" open a new horizontal split and switch over to it.
+nnoremap <leader>w <C-w>s<C-w>l
+
+" open a new vertical split and switch over to it.
+nnoremap <leader>s <C-w>v<C-w>l
+

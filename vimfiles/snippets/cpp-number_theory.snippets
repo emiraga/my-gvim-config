@@ -1,0 +1,116 @@
+snippet genprimes
+	#define MAXP 1000000
+	bool primes[MAXP];
+	vector<int> plist;
+
+	void genprimes() 
+	{
+		plist.clear();
+		int m = (int)sqrt(int(MAXP));
+		primes[0]=primes[1]=0;
+		for(int i=2;i<MAXP;i++) primes[i] = 1;
+		for(int i=2;i<=m;i++)
+			if (primes[i])
+				for(int j=i*i;j<MAXP;j+=i) primes[j] = 0;
+		for(int i=2;i<MAXP;i++)if(primes[i])plist.push_back(i);
+	}
+
+snippet choose
+	LL choose;
+	For(i,1,50)
+	{
+		choose[i][0]=choose[i][i]=1;
+		For(j,1,i)
+		{
+			choose[i][j] = choose[i-1][j]+choose[i-1][j-1];
+		}
+	}
+
+snippet ncr
+	// ncr calculating
+	SET( ncr, 0 );
+	ncr[0][0] = 1;
+	FOR(i,1,n) {
+		ncr[i][0] = 1;
+		FOR(j,1,n) ncr[i][j] = ncr[i-1][j] + ncr[i-1][j-1];
+	}
+
+snippet euclidExtended
+	template<class T> inline T euclid(T a,T b,T &X,T &Y)
+	{
+		if(a<0)	{ T d=euclid(-a,b,X,Y); X=-X; return d;	}
+		if(b<0) { T d=euclid(a,-b,X,Y); Y=-Y; return d; }
+		if(b==0) { X=1; Y=0; return a; }
+		else{
+			T d=euclid(b,a%b,X,Y);
+			T t=X;
+			X=Y;
+			Y=t-(a/b)*Y;
+			return d;
+		}
+	}
+
+snippet isprime2MillerRabin
+	bool isprime2(long long p, int iteration){
+	    if(p<2)
+	        return false;
+	    if(p!=2 && p%2==0)
+	        return false;
+	    long long s=p-1;
+	    while(s%2==0)
+	        s/=2;
+	    for(int i=0;i<iteration;i++){
+	        long long a=rand()%(p-1)+1,temp=s;
+	        long long mod=powermod(a,temp,p);
+	        while(temp!=p-1 && mod!=1 && mod!=p-1){
+	            mod=multiplymod(mod,mod,p);
+	            temp *= 2;
+	        }
+	        if(mod!=p-1 && temp%2==0)
+	            return false;
+	    }
+	    return true;
+	}
+
+
+snippet factorize
+	template<class T> inline vector<pair<T,int> > factorize(T n)
+	{
+		vector<pair<T,int> > R;
+		for (T i=2;n>1;)
+		{
+			if (n%i==0)
+			{
+				int C=0;
+				for (;n%i==0;C++,n/=i);
+				R.push_back(make_pair(i,C));
+			}
+			i++;
+			if (i>n/i) i=n;
+		}
+		if (n>1)
+			R.push_back(make_pair(n,1));
+		return R;
+	}
+
+snippet eulerPhi
+	template<class T> T euler(T n) 
+	{ 
+		T result = n; 
+		for(int i=2;i*i <= n;i++) { 
+			if (n % i == 0) result -= result / i; 
+			while (n % i == 0) n /= i; 
+		}
+		if (n > 1) result -= result / n; 
+		return result; 
+	}
+
+snippet euler2Phi
+	template<class T> inline T euler2(T n) 
+	{
+		vector<pair<T,int> > R=factorize(n);
+		T r=n;
+		for (int i=0;i<R.size();i++)
+			r=r/R[i].first*(R[i].first-1);
+		return r;
+	}

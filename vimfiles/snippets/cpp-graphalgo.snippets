@@ -1,0 +1,72 @@
+snippet bpm
+	#define M 1010
+	int grid[M][M];
+	int l[M], r[M], seen[M];
+	int rows, cols;
+	
+	bool dfs(int x)
+	{
+		if( seen[x] ) return false;
+		seen[x] = true;
+		Rep(i,cols) if( grid[x][i] ) if( r[i] == -1 || dfs( r[i] ) )
+		{
+			r[i] = x, l[x] = i;
+			return true;
+		}
+		return false;
+	}
+	
+	int bpm() {
+		SET( l, -1 );
+		SET( r, -1 );
+		int ret = 0;
+		Rep(i,rows) {
+			SET( seen, 0 );	
+			if( dfs( i ) ) ret ++;
+		}	
+		return ret;
+	}
+	
+	bool lT[M], rT[M];
+	
+	void konigdfs(int x)
+	{
+		if( !lT[x] ) return; lT[x] = 0;
+		Rep(i,cols) if(grid[x][i] && i != l[x])
+		{
+			rT[i] = true;
+			if( r[i] != -1) konigdfs(r[i]);
+		}
+	}
+	
+	int konig()
+	{
+		SET(lT, 1);
+		SET(rT, 0);
+		Rep(i,rows) if(l[i] == -1) konigdfs(i);
+	}
+
+snippet djikstra-set
+	double d[51][51]; 
+	double a[51][4001]; 
+	typedef pair<double, pii> st;
+	Rep(i,n) Rep(j,m) a[i][j] = 1e100;
+	S.clear();
+	/*add*/a[0][0] = 0.0; S.insert( make_pair(0.0, pii(0, 0) ) );
+	
+	while (!S.empty()) {
+		st curr = *S.begin(), next;
+		S.erase(S.begin());
+		i = curr.y.x;
+		k = curr.y.y;
+
+		for (j = 0; j < n; j++) {
+			next.x = curr.x + d[i][j];
+			next.y.x = j;
+			next.y.y = curr.y.y + get(d[i][j], maxD);
+			if (next.x <= maxT && next.y.y < m && next.x < a[next.y.x][next.y.y]) {
+				S.erase( st(a[next.y.x][next.y.y], next.y) );
+				/*add*/a[next.y.x][next.y.y] = next.x; S.insert(next);
+			}
+		}
+	}
