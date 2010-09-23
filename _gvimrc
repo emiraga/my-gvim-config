@@ -205,6 +205,9 @@ map <leader>d :update<CR>:silent !make %.exe && gdb -q %.exe<CR>
 " Note: I use custom define MYCOMP. (See: vimfiles/add_to_template.cpp)
 " Node2: That is an actual TAB character, no spaces.
 
+" Open "input.txt" in split window
+map <leader>i <C-w>v<C-w>l:open input.txt<CR>
+
 """""""""""""""""
 " LEADER MAPING "
 """""""""""""""""
