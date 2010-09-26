@@ -99,9 +99,39 @@ vnoremap <F1> <ESC>
 
 " Shift movement keys
 nnoremap j h
-nnoremap k j
-nnoremap l k
+nnoremap k gj
+nnoremap l gk
 nnoremap ; l
+
+" Yank + movement keys
+nnoremap yk yj
+nnoremap yl yk
+
+nnoremap y2k y2j
+nnoremap y2l y2k
+nnoremap y3k y3j
+nnoremap y3l y3k
+nnoremap y4k y4j
+nnoremap y4l y4k
+nnoremap y5k y5j
+nnoremap y5l y5k
+nnoremap y6k y6j
+nnoremap y6l y6k
+
+" Delete + movement keys
+nnoremap dk dj
+nnoremap dl dk
+
+nnoremap d2k d2j
+nnoremap d2l d2k
+nnoremap d3k d3j
+nnoremap d3l d3k
+nnoremap d4k d4j
+nnoremap d4l d4k
+nnoremap d5k d5j
+nnoremap d5l d5k
+nnoremap d6k d6j
+nnoremap d6l d6k
 
 " Some abbreviations, misspellings
 abbreviate teh the
