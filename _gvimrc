@@ -101,13 +101,9 @@ vnoremap <F1> <ESC>
 
 " Shift movement keys
 nnoremap j h
-nnoremap k gj
-nnoremap l gk
+nnoremap k j
+nnoremap l k
 nnoremap ; l
-
-" Allow proper Yank + movement
-nnoremap yk yj
-nnoremap yl yk
 
 " Some abbreviations, misspellings
 abbreviate teh the
@@ -166,6 +162,7 @@ amenu &GIT.real_diff_&HEAD <ESC>:silent Git diff HEAD & pause<CR>
 
 amenu &GIT.&status <ESC>:silent!Gstatus<CR>
 amenu &GIT.real_status <ESC>:silent Git status & pause<CR>
+amenu &GIT.&push_origin_master <ESC>:silent Git push origin master<CR>
 
 " Status bar for fugitive
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
