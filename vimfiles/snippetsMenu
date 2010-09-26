@@ -17,6 +17,7 @@ amenu Snippets.geom.reflectPoint :<ESC><ESC>ireflectPoint<TAB><CR>
 amenu Snippets.geom.convexHull :<ESC><ESC>iconvexHull<TAB><CR>
 amenu Snippets.geom.things_to_add :<ESC><ESC>ithings_to_add<TAB><CR>
 amenu Snippets.graphalgo.bpm :<ESC><ESC>ibpm<TAB><CR>
+amenu Snippets.graphalgo.fastbpm_smilitude :<ESC><ESC>ifastbpm_smilitude<TAB><CR>
 amenu Snippets.graphalgo.djikstra-set :<ESC><ESC>idjikstra-set<TAB><CR>
 amenu Snippets.maxflow.maxflow :<ESC><ESC>imaxflow<TAB><CR>
 amenu Snippets.maxflow.maxflowLIST :<ESC><ESC>imaxflowLIST<TAB><CR>
@@ -32,6 +33,8 @@ amenu Snippets.misc.details :<ESC><ESC>idetails<TAB><CR>
 amenu Snippets.misc.equal :<ESC><ESC>iequal<TAB><CR>
 amenu Snippets.misc.bigNumInt :<ESC><ESC>ibigNumInt<TAB><CR>
 amenu Snippets.misc.infixToPostfix :<ESC><ESC>iinfixToPostfix<TAB><CR>
+amenu Snippets.misc.bsearchLE :<ESC><ESC>ibsearchLE<TAB><CR>
+amenu Snippets.misc.bsearchGE :<ESC><ESC>ibsearchGE<TAB><CR>
 amenu Snippets.number_theory.genprimes :<ESC><ESC>igenprimes<TAB><CR>
 amenu Snippets.number_theory.choose :<ESC><ESC>ichoose<TAB><CR>
 amenu Snippets.number_theory.ncr :<ESC><ESC>incr<TAB><CR>

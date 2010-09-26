@@ -20,7 +20,8 @@ set modelines=0
 
 " Better colors
 syntax enable
-colorscheme pablo 
+" colorscheme pablo 
+colorscheme ir_black
 
 " Show numbers
 set number
@@ -88,9 +89,6 @@ nnoremap <right> <nop>
 "inoremap <left> <nop>
 "inoremap <right> <nop>
 
-nnoremap j gj
-nnoremap k gk
-
 " Save on loosing focus
 au FocusLost * :wa
 
@@ -133,8 +131,20 @@ nnoremap <BS> <PageUp>
 nnoremap <C-Space> <C-PageDown>
 nnoremap <C-BS> <C-PageUp>
 
+" Ctrl+left/right for next/prev buffer
+nnoremap <C-Left> :bn<CR>
+nnoremap <C-Right> :bp<CR>
+
+" Ctrl+K/L for next/prev buffer
+nnoremap <C-K> :bn<CR>
+nnoremap <C-L> :bp<CR>
+
 " Use system clipboard on windows
 set clipboard=unnamed
+
+" Show numbers only in current window
+"au WinEnter * setlocal number
+"au WinLeave * setlocal nonumber
 
 " NERD Tree
 map <F2> :NERDTreeToggle<cr>
@@ -145,9 +155,9 @@ amenu NERDtree.m_tc :NERDTree m:\tc\<CR>
 amenu NERDtree.python :NERDTree c:\py\<CR>
 amenu NERDtree.nodejs :NERDTree m:\github.com\emiraga\<CR>
 
-" Some keyboard shortcuts for fugitive (GIT wrapper for vim)
-nnoremap <C-Right> :silent!cp<CR>
-nnoremap <C-Left> :silent!cn<CR>
+" Some keyboard shortcuts for fugitive (GIT wrapper for vim), Ctrl+left/right
+"nnoremap <C-Right> :silent!cp<CR>
+"nnoremap <C-Left> :silent!cn<CR>
 
 " Menu for fugitive
 amenu &GIT.&write <ESC>:silent!Gwrite<CR>
@@ -218,7 +228,7 @@ nnoremap <leader>a :Ack
 " I work with HTML often, so I have ,ft mapped to a “fold tag” function:
 nnoremap <leader>ft Vatzf
 
-" I also work with Nick Sergeant and he likes his CSS properties sorted, so here’s a ,S mapping that sorts them for me:
+" CSS properties sorted, so here’s a ,S mapping that sorts them for me:
 nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
 " This next mapping imitates TextMates Ctrl+Q function to re-hardwrap paragraphs of text:
@@ -226,9 +236,6 @@ nnoremap <leader>q gqip
 
 " I have a ,v mapping to reselect the text that was just pasted so I can perform commands (like indentation) on it:
 nnoremap <leader>v V`]
-
-" This last mapping lets me quickly open up my ~/.vimrc file in a vertically split window so I can add new things to it on the fly.
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " open a new horizontal split and switch over to it.
 nnoremap <leader>w <C-w>s<C-w>l
