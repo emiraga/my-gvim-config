@@ -5,6 +5,9 @@ if has('gui_running')
     " Set font
     set guifont=peep:b
     "set guifont=Terminal:bh14
+
+    " hide toolbar
+    "set guioptions-=T
 endif
 
 " Pathogen config needs this
@@ -43,7 +46,7 @@ set scrolloff=3
 set autoindent
 set showmode
 set showcmd
-set hidden
+set hidden "allow creating hidden buffers
 set wildmenu
 set wildmode=list:longest
 " set visualbell " blink screen
@@ -55,12 +58,25 @@ set backspace=indent,eol,start
 set laststatus=2
 " set undofile " save more undo files
 
+" Allow to pass by end of the line
+" set virtualedit=all
+
+" Useful for html/xml
+set matchpairs+=<:>
+
+" Put dolar sign at the end of change
+set cpoptions+=$
+
+" Visible invisible
+set nolist
+set listchars=tab:>\ ,eol:$
+
 " Set leader key, originally "g" now it is ","
 let mapleader = ","
 
 " Smart searching
-nnoremap / /\v
-vnoremap / /\v
+" nnoremap / /\v
+" vnoremap / /\v
 set ignorecase
 set smartcase
 set gdefault
@@ -103,35 +119,15 @@ nnoremap k gj
 nnoremap l gk
 nnoremap ; l
 
-" Yank + movement keys
-nnoremap yk yj
-nnoremap yl yk
+vnoremap j h
+vnoremap k j
+vnoremap l k
+vnoremap ; l
 
-nnoremap y2k y2j
-nnoremap y2l y2k
-nnoremap y3k y3j
-nnoremap y3l y3k
-nnoremap y4k y4j
-nnoremap y4l y4k
-nnoremap y5k y5j
-nnoremap y5l y5k
-nnoremap y6k y6j
-nnoremap y6l y6k
-
-" Delete + movement keys
-nnoremap dk dj
-nnoremap dl dk
-
-nnoremap d2k d2j
-nnoremap d2l d2k
-nnoremap d3k d3j
-nnoremap d3l d3k
-nnoremap d4k d4j
-nnoremap d4l d4k
-nnoremap d5k d5j
-nnoremap d5l d5k
-nnoremap d6k d6j
-nnoremap d6l d6k
+onoremap j h
+onoremap k j
+onoremap l k
+onoremap ; l
 
 " Some abbreviations, misspellings
 abbreviate teh the
@@ -146,6 +142,12 @@ nnoremap <Left> <C-w>h
 nnoremap <Down> <C-w>j
 nnoremap <Up> <C-w>k
 nnoremap <Right> <C-w>l
+
+" Move through split windows using arrow keys
+nnoremap <S-Left> <C-w>H
+nnoremap <S-Down> <C-w>J
+nnoremap <S-Up> <C-w>K
+nnoremap <S-Right> <C-w>L
 
 " In insert mode
 "inoremap <Left> <esc><C-w>ha
@@ -272,4 +274,7 @@ nnoremap <leader>w <C-w>s<C-w>l
 
 " open a new vertical split and switch over to it.
 nnoremap <leader>s <C-w>v<C-w>l
+
+" 
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 

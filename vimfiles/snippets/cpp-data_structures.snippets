@@ -1,24 +1,24 @@
 snippet unionfind
 	struct UnionFind
 	{
-		int c;  
-		vector<int> parent, rank;  
-		UnionFind(int n) : c(n), parent(n), rank(n)  
+		int c;
+		vector<int> parent, rank;
+		UnionFind(int n) : c(n), parent(n), rank(n)
 		{ for(int i = 0; i < n; ++i)	parent[i] = i, rank[i] = 0; }
 		int root(int x) { if(parent[x] != x) parent[x] = root(parent[x]); return parent[x]; }
-		bool join(int a, int b)   
-		{  
+		bool join(int a, int b)
+		{
 			a = root(a); b = root(b);
 			if(a == b) return false;
 			if(rank[a] > rank[b])
 				parent[b] = a;
-			else   
-			{  
-				parent[a] = b;  
-				if(rank[a] == rank[b]) rank[b]++;  
-			}  
-			--c;  
-			return true;  
+			else
+			{
+				parent[a] = b;
+				if(rank[a] == rank[b]) rank[b]++;
+			}
+			--c;
+			return true;
 		 }
 	};
 
