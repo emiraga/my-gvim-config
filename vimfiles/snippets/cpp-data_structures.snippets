@@ -99,3 +99,47 @@ snippet segmentTree
 		if(pos>mid && mid+1<j) update(2*n+1,mid+1,j,pos,v);
 		H[n]=comp( H[2*n],H[2*n+1] )?H[2*n]:H[2*n+1];
 	}
+
+snippet BIT
+	int bit[M],n,m;
+	void update(int x, int v) {
+		while( x <= n ) {
+			bit[x] += v;
+			x += x & -x;
+		}
+	}
+
+	int sum( int x ) {
+		int ret = 0;
+		while( x > 0 ){ 
+			ret += bit[x];
+			x -= x & -x;
+		}
+		return ret;
+	}
+
+snippet BIT_2D
+	int bit[M][M];
+	int n;
+
+	int sum( int x, int y ){
+		int ret = 0;
+		while( x > 0 ){
+			int yy = y; 
+				while( yy > 0 ) ret += bit[x][yy], yy -= yy & -yy;
+			x -= x & -x ;
+		}
+		return ret ;
+	}
+
+	void update(int x , int y , int val){
+		int y1;
+		while (x <= n){
+			y1 = y;
+			while (y1 <= n){
+				bit[x][y1] += val;
+				y1 += (y1 & -y1); 
+			}
+			x += (x & -x); 
+		}
+	}

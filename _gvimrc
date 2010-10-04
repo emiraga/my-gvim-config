@@ -231,25 +231,25 @@ map <silent><F4> :update<CR>:silent make %.exe<CR>
 " F5 - Compile a file and run in foreground, wait for "pause"
 map <F5> :update<CR>:silent !make %.exe && %.exe \|\| echo run \| gdb -q %.exe & pause<CR>
 
-" Leader,g - Compile a file and run with debugger, wait for "pause"
-map <leader>d :update<CR>:silent !make %.exe && gdb -q %.exe<CR>
-
 " Contents of a Makefile (without <code> tags)
 "
 "<code>
 "%.exe : %
 "       g++ -D MYCOMP -g -lm $< -o $@
 "</code>
-"
 " Note: I use custom define MYCOMP. (See: vimfiles/add_to_template.cpp)
 " Node2: That is an actual TAB character, no spaces.
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" LEADER MAPING
+" don;t have one command to be a prefix od another
+""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Open "input.txt" in split window
 map <leader>i <C-w>v<C-w>l:open input.txt<CR>
 
-"""""""""""""""""
-" LEADER MAPING "
-"""""""""""""""""
+" Leader,g - Compile a file and run with debugger
+map <leader>d :update<CR>:silent !make %.exe && gdb -q %.exe<CR>
 
 " strip all trailing whitespace in the current file so I can clean things up quickly
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -266,15 +266,13 @@ nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 " This next mapping imitates TextMates Ctrl+Q function to re-hardwrap paragraphs of text:
 nnoremap <leader>q gqip
 
-" I have a ,v mapping to reselect the text that was just pasted so I can perform commands (like indentation) on it:
-nnoremap <leader>v V`]
-
 " open a new horizontal split and switch over to it.
 nnoremap <leader>w <C-w>s<C-w>l
 
 " open a new vertical split and switch over to it.
 nnoremap <leader>s <C-w>v<C-w>l
 
-" 
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+" edit my _gvimrc
+nnoremap <leader>v :e $HOME/_gvimrc<cr>
+"nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
