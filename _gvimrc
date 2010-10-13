@@ -1,13 +1,17 @@
 if has('gui_running')
     " Maximize window on open
-    au GUIEnter * simalt ~x
+    " au GUIEnter * simalt ~x
     
     " Set font
     set guifont=peep:b
     "set guifont=Terminal:bh14
 
     " hide toolbar
-    "set guioptions-=T
+    set guioptions-=T
+
+    " Show numbers only in current window
+    "au WinEnter * setlocal number
+    "au WinLeave * setlocal nonumber
 endif
 
 " Pathogen config needs this
@@ -18,8 +22,8 @@ filetype plugin indent on
 " Remove compatibility with old versions
 set nocompatible
 
-" Security issues
-set modelines=0
+" Security issues, not sure if needed
+" set modelines=0
 
 " Better colors
 syntax enable
@@ -40,7 +44,8 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-" Make things better, according to http://stevelosh.com/blog/2010/09/coming-home-to-vim/
+" Make things better, 
+" according to http://stevelosh.com/blog/2010/09/coming-home-to-vim/
 set encoding=utf-8
 set scrolloff=3
 set autoindent
@@ -67,7 +72,7 @@ set matchpairs+=<:>
 " Put dolar sign at the end of change
 set cpoptions+=$
 
-" Visible invisible
+" Visible the invisible characters
 set nolist
 set listchars=tab:>\ ,eol:$
 
@@ -92,18 +97,10 @@ vnoremap <tab> %
 set wrap
 set textwidth=79
 set formatoptions=qrn1
-set colorcolumn=80
 
-" New user, disable arrow keys
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-
-"inoremap <up> <nop>
-"inoremap <down> <nop>
-"inoremap <left> <nop>
-"inoremap <right> <nop>
+" Highlight end of lines which are longer than 80 characters
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
 
 " Save on loosing focus
 au FocusLost * :wa
@@ -113,7 +110,7 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-" Shift movement keys
+" Shift movement keys in touch typing position
 nnoremap j h
 nnoremap k gj
 nnoremap l gk
@@ -149,6 +146,10 @@ nnoremap <S-Down> <C-w>J
 nnoremap <S-Up> <C-w>K
 nnoremap <S-Right> <C-w>L
 
+" Easier escape mode
+inoremap jj <Esc>
+cnoremap jj <C-c>
+
 " In insert mode
 "inoremap <Left> <esc><C-w>ha
 "inoremap <Down> <esc><C-w>ja
@@ -173,10 +174,6 @@ nnoremap <C-L> :bp<CR>
 
 " Use system clipboard on windows
 set clipboard=unnamed
-
-" Show numbers only in current window
-"au WinEnter * setlocal number
-"au WinLeave * setlocal nonumber
 
 " NERD Tree
 map <F2> :NERDTreeToggle<cr>
@@ -229,7 +226,8 @@ let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat
 map <silent><F4> :update<CR>:silent make %.exe<CR>
 
 " F5 - Compile a file and run in foreground, wait for "pause"
-map <F5> :update<CR>:silent !make %.exe && %.exe \|\| echo run \| gdb -q %.exe & pause<CR>
+map <F5> :update<CR>:silent !make %.exe && %.exe \|\| 
+    \ echo run \| gdb -q %.exe & pause<CR>
 
 " Contents of a Makefile (without <code> tags)
 "
@@ -263,7 +261,7 @@ nnoremap <leader>ft Vatzf
 " CSS properties sorted, so here’s a ,S mapping that sorts them for me:
 nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
-" This next mapping imitates TextMates Ctrl+Q function to re-hardwrap paragraphs of text:
+" This next function is to re-hardwrap paragraphs of text:
 nnoremap <leader>q gqip
 
 " open a new horizontal split and switch over to it.
