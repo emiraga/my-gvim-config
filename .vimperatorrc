@@ -1,0 +1,59 @@
+set guioptions+=Nrb
+"set guioptions+=B
+
+set noerrorbells
+
+" Shift movement keys in touch typing position
+nmap j gT
+nmap k <Down>
+nmap l <Up>
+nmap ; gt
+
+" backspace for move up
+nnoremap <Bs> <C-b>
+
+nnoremap <C-k> <C-d>
+nnoremap <C-l> <C-u>
+
+" standard escape combination
+imap jj <Esc>
+cmap jj <Esc>
+
+nmap h :bmarks!<Space>
+
+let mapleader = ","
+map <Leader>s <Esc>:source ~/.vimperatorrc<CR>
+
+" mswin.vimp - mappings to make copy/paste in Vimperator behave like Windows
+" Maintainer: Doug Kearns <dougkearns@gmail.com>
+" Last Change: 31 Oct 2008
+
+noremap <C-q> <C-v>
+noremap <C-Q> <C-z>
+" TODO: this should probably be <C-Break> - see :help dos-CTRL-break in Vim
+noremap <C-s> <C-c>
+
+inoremap <C-q> <C-v>
+inoremap <C-Q> <C-z>
+inoremap <C-s> <C-c>
+
+noremap <C-c> <C-v><C-c>
+noremap <C-v> <C-v><C-v>
+noremap <C-x> <C-v><C-x>
+noremap <C-z> <C-v><C-z>
+noremap <C-y> <C-v><C-y>
+
+cnoremap <C-c> <C-v><C-c>
+cnoremap <C-v> <C-v><C-v>
+cnoremap <S-Insert> <C-v><C-v>
+cnoremap <C-x> <C-v><C-x>
+cnoremap <C-z> <C-v><C-z>
+cnoremap <C-y> <C-v><C-y>
+
+inoremap <C-c> <C-v><C-c>
+inoremap <C-v> <C-v><C-v>
+inoremap <S-Insert> <C-v><C-v>
+inoremap <C-x> <C-v><C-x>
+inoremap <C-z> <C-v><C-z>
+inoremap <C-y> <C-v><C-y>
+
