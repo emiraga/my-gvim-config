@@ -1,0 +1,20 @@
+"set noerrorbells
+" Shift movement keys in touch typing position
+nnoremap j h
+nnoremap k j
+nnoremap l k
+nnoremap ; l
+
+vnoremap j h
+vnoremap k j
+vnoremap l k
+vnoremap ; l
+" standard escape combination
+imap jj <Esc>
+cmap jj <Esc>
+
+syntax enable
+
+set whichwrap=h,l,~,[,]
+set clipboard=unnamed
+
