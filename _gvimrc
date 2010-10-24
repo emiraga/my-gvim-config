@@ -27,8 +27,8 @@ set nocompatible
 
 " Better colors
 syntax enable
-" colorscheme pablo 
-colorscheme ir_black
+colorscheme pablo 
+" colorscheme ir_black
 
 " Show numbers
 set number
@@ -210,14 +210,18 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " Related to programming competitions "
 """""""""""""""""""""""""""""""""""""""
 
-" Load menu with all available snippets
-source ~/vimfiles/snippetsMenu
+if $SHELL == "/bin/bash"
+    "source ~/.vim/snippetsMenu
+    "source ~/.vim/snippetsHighlight
+else
+    " Load menu with all available snippets
+    source ~/vimfiles/snippetsMenu
+    " Highlight elements from template, plugin
+    source ~/vimfiles/snippetsHighlight
+    " Highlights certain words with red color, plugin
+    Highlight 1 \<\(D\|Dv\|Da\|D2\|D3\|D4\|D5\|sleep\|assert\)\>
+endif
 
-" Highlight elements from template, plugin
-source ~/vimfiles/snippetsHighlight
-
-" Highlights certain words with red color, plugin
-Hi 1 \<\(D\|Dv\|Da\|D2\|D3\|D4\|D5\|sleep\|assert\)\>
 
 " Error marker plugin
 let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat
@@ -249,7 +253,7 @@ map <leader>i <C-w>v<C-w>l:open input.txt<CR>
 " Leader,g - Compile a file and run with debugger
 map <leader>d :update<CR>:silent !make %.exe && gdb -q %.exe<CR>
 
-" strip all trailing whitespace in the current file so I can clean things up quickly
+" strip all trailing whitespace in the current file so I can clean things up
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " I use Ack a lot (described below), so I mapped a leader key for it:
@@ -271,6 +275,10 @@ nnoremap <leader>w <C-w>s<C-w>l
 nnoremap <leader>s <C-w>v<C-w>l
 
 " edit my _gvimrc
-nnoremap <leader>v :e $HOME/_gvimrc<cr>
-"nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
+if $SHELL == "/bin/bash"
+    nnoremap <leader>v :e $HOME/.vimrc<cr>
+else
+    nnoremap <leader>v :e $HOME/_gvimrc<cr>
+endif
 
