@@ -2,8 +2,16 @@ if has('gui_running')
     " Maximize window on open
     " au GUIEnter * simalt ~x
     
-    " Set font
-    set guifont=peep:b
+    if $SHELL == '/bin/bash'
+        " Set font
+        set anti guifont=DejaVu\ Sans\ Mono\ 12
+
+        " hide menu bar
+        set guioptions-=m
+    else
+        " Set font
+        set guifont=peep:b
+    endif
     "set guifont=Terminal:bh14
 
     " hide toolbar
@@ -175,6 +183,22 @@ nnoremap <C-L> :bp<CR>
 " Use system clipboard on windows
 set clipboard=unnamed
 
+" to get into the current directory
+function AlwaysCD()
+  if bufname("") !~ "^ftp://"
+      lcd %:p:h
+  endif
+endfunction
+autocmd BufEnter * call AlwaysCD()
+
+if $SHELL == '/bin/bash'
+    " copying macro for linux
+    vmap <C-C> "+y
+    map <C-V> "+gP
+    map <C-A> ggVG
+    map <C-X> "+x
+endif
+
 " NERD Tree
 map <F2> :NERDTreeToggle<cr>
 let NERDTreeIgnore=['.vim$', '\~$', '.*\.pyc$', 'pip-log\.txt$']
@@ -211,7 +235,7 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 """""""""""""""""""""""""""""""""""""""
 
 if $SHELL == "/bin/bash"
-    "source ~/.vim/snippetsMenu
+    source ~/.vim/snippetsMenu
     "source ~/.vim/snippetsHighlight
 else
     " Load menu with all available snippets
@@ -229,9 +253,23 @@ let &errorformat="%f:%l:%c: %t%*[^:]:%m,%f:%l: %t%*[^:]:%m," . &errorformat
 " F4 - background compile a file
 map <silent><F4> :update<CR>:silent make %.exe<CR>
 
-" F5 - Compile a file and run in foreground, wait for "pause"
-map <F5> :update<CR>:silent !make %.exe && %.exe \|\| 
-    \ echo run \| gdb -q %.exe & pause<CR>
+if $SHELL == '/bin/bash'
+    " For linux
+    " F5 - Compile a file and run in foreground
+    map <F5> :update<CR>:!ulimit -c unlimited && make %.exe
+                \ && ./%.exe \|\| gdb -q ./%.exe -c ./core<CR>
+    map <silent><F6> :update<CR>:silent !gnome-terminal 
+                \ --working-directory=%:p:h -e "bash -c 'ulimit -c unlimited; 
+                \ make %.exe && ( ./%.exe && read \|\| gdb -q ./%.exe -c 
+                \ ./core ) \|\| read'"<CR>
+    map <F8> :update<CR>:!ulimit -c unlimited && make %.exe
+                \ && ./%.exe < input.txt \|\| gdb -q ./%.exe -c ./core<CR>
+else
+    " For windows
+    " F5 - Compile a file and run in foreground, wait for "pause"
+    map <F5> :update<CR>:silent !make %.exe && %.exe \|\| 
+        \ echo run \| gdb -q %.exe & pause<CR>
+endif
 
 " Contents of a Makefile (without <code> tags)
 "
