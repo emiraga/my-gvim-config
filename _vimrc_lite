@@ -1,0 +1,21 @@
+" team cat-us-trophy vimrc
+set ai ts=4 sw=4 st=4 noet nu hls
+syntax enable
+filetype plugin indent on
+map <F5> :w<CR>:!g++ % -g && ./a.out < ~/input.txt <CR>
+map <F6> :w<CR>:!g++ % -g && ./a.out < ~/input.txt <CR>
+
+" not in team vimrc, just personal config
+map <F12> :w<CR>:!gdb ./a.out -c core <CR>
+imap jj <ESC>
+
+" for usaco
+map <F8> :w<CR>:!g++ % -g -o a.exe && ./a.exe && cat *.out <CR>
+
+inoremap <Nul> <C-x><C-o>
+
+" for python
+au FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+au FileType python match OverLength /\%81v.\+/
+au FileType python set et
+au FileType python set sta
