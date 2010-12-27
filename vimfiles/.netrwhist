@@ -1,0 +1,4 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/home/emiraga/gh/emiraga/node/test4/logs'
+let g:netrw_dirhist_2='/home/emiraga/gh/emiraga/node/test4/views'

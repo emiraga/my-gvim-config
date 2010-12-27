@@ -17,7 +17,6 @@ map <F8> :w<CR>:!g++ % -g -o a.exe && ./a.exe && cat *.out <CR>
 " omni-completion
 inoremap <Nul> <C-x><C-o>
 
-
 " Don't write backup files
 set nobackup
 set nowritebackup
@@ -45,7 +44,7 @@ set backspace=indent,eol,start
 set matchpairs+=<:>
 
 " Put dolar sign at the end of change
-set cpoptions+=$
+" set cpoptions+=$
 
 " Save on loosing focus
 au FocusLost * :wa
@@ -67,4 +66,88 @@ au FileType python set sta
 
 " for javascript
 au FileType javascript map <F6> :w<CR>:!node %<CR>
+au FileType javascript set et
+
+"-----------------------------------------------
+"
+"
+"
+"-----------------------------------------------
+
+" Pathogen config needs this
+filetype off
+" call pathogen#runtime_append_all_bundles()
+filetype plugin indent on
+
+" Remove compatibility with old versions
+set nocompatible
+
+" Security issues, not sure if needed
+" set modelines=0
+
+" Better colors
+syntax enable
+" colorscheme pablo 
+" colorscheme ir_black
+
+" Show numbers
+set number
+" set relativenumber " weird numbers
+
+" Don't write backup files
+set nobackup
+set nowritebackup
+
+" Nice tabs, tabs to spaces conversion
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+" Make things better, 
+" according to http://stevelosh.com/blog/2010/09/coming-home-to-vim/
+set encoding=utf-8
+set scrolloff=1
+set autoindent
+set showmode
+set showcmd
+set hidden "allow creating hidden buffers
+set wildmenu
+set wildmode=list:longest
+" set visualbell " blink screen
+set noeb
+" set cursorline " highlight current line
+set ttyfast
+set backspace=indent,eol,start
+
+" Set leader key, originally "g" now it is ","
+let mapleader = ","
+
+" Smart searching
+" nnoremap / /\v
+" vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+"set hlsearch
+
+" Never, ever do 'set showmatch'
+
+" Handle long lines correctly
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+
+" Save on loosing focus
+au FocusLost * :wa
+
+" Disable F1 help key
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" F4 - background compile a file
+map <silent><F4> :update<CR>:silent make %.exe<CR>
+
+map <leader>i <C-w>v<C-w>l:open input.txt<CR>
 

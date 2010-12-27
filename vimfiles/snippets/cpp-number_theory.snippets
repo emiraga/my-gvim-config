@@ -35,14 +35,14 @@ snippet ncr
 		FOR(j,1,n) ncr[i][j] = ncr[i-1][j] + ncr[i-1][j-1];
 	}
 
-snippet euclidExtended
-	template<class T> inline T euclid(T a,T b,T &X,T &Y)
+snippet egcd
+	template<class T> inline T egcd(T a,T b,T &X,T &Y)
 	{
-		if(a<0)	{ T d=euclid(-a,b,X,Y); X=-X; return d;	}
-		if(b<0) { T d=euclid(a,-b,X,Y); Y=-Y; return d; }
+		if(a<0)	{ T d=egcd(-a,b,X,Y); X=-X; return d;	}
+		if(b<0) { T d=egcd(a,-b,X,Y); Y=-Y; return d; }
 		if(b==0) { X=1; Y=0; return a; }
 		else{
-			T d=euclid(b,a%b,X,Y); T t=X;
+			T d=egcd(b,a%b,X,Y); T t=X;
 			X=Y; Y=t-(a/b)*Y;
 			return d;
 		}
@@ -71,7 +71,8 @@ snippet isprime2MillerRabin
 	}
 
 snippet factorize
-	template<class T> inline vector<pair<T,int> > factorize(T n)
+	template<class T>
+	inline vector<pair<T,int> > factorize(T n)
 	{
 		vector<pair<T,int> > R;
 		for (T i=2;n>1;)
@@ -90,8 +91,8 @@ snippet factorize
 		return R;
 	}
 
-snippet eulerPhi
-	template<class T> T euler(T n) 
+snippet phi
+	template<class T> T phi(T n) 
 	{ 
 		T result = n; 
 		for(int i=2;i*i <= n;i++) { 
@@ -116,24 +117,39 @@ snippet s_gcd_congr_modinv
 	LL gcd( LL a, LL b ) {
 		return !b ? a : gcd( b, a%b );
 	}
-	PII egcd( LL a, LL b ) {  // returns x,y | ax + by = gcd(a,b)
-		if( b == 0 ) return mp( 1, 0 );
+	pii egcd( LL a, LL b ) {  // returns x,y | ax + by = gcd(a,b)
+		if( b == 0 ) return make_pair( 1, 0 );
 		else {
-			PII d = egcd( b, a % b );
-			return mp( d.y, d.x - d.y * ( a / b ) );
+			pii d = egcd( b, a % b );
+			return make_pair( d.y, d.x - d.y * ( a / b ) );
 		}
 	}
 	LL congruence( int a, int b, int n ) { // finds ax = b(mod n) 
 		int d = gcd( a, n );
 		if( b % d != 0 ) return 1<<30; // no solution
-		PII ans = egcd( a, n );
+		pii ans = egcd( a, n );
 		LL ret = ans.x * ( b/d + 0LL ), mul = n/d;
 		ret %= mul;
 		if( ret < 0 ) ret += mul;
 		return ret;
 	}
 	LL m_inverse( LL num, LL mod ) {
-		PII p = egcd( num, mod );
+		pii p = egcd( num, mod );
+		int ret = p.x % mod;
+		if( ret < 0 ) ret += mod;
+		return ret;
+	}
+
+snippet modinv
+	pii egcd_2( LL a, LL b ) {  // returns x,y | ax + by = gcd(a,b)
+		if( b == 0 ) return make_pair( 1, 0 );
+		else {
+			pii d = egcd_2( b, a % b );
+			return make_pair( d.y, d.x - d.y * ( a / b ) );
+		}
+	}
+	LL modinv( LL num, LL mod ) {
+		pii p = egcd_2( num, mod );
 		int ret = p.x % mod;
 		if( ret < 0 ) ret += mod;
 		return ret;
