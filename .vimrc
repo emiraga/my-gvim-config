@@ -63,10 +63,18 @@ au FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 au FileType python match OverLength /\%81v.\+/
 au FileType python set et
 au FileType python set sta
+au FileType python map <F6> :w<CR>:!python %<CR>
 
 " for javascript
 au FileType javascript map <F6> :w<CR>:!node %<CR>
 au FileType javascript set et
+
+" for coffeescript
+au FileType coffee map <F6> :w<CR>:!coffee %<CR>
+au FileType coffee set et
+
+" for templates
+au FileType htmldjango set et
 
 "-----------------------------------------------
 "
@@ -134,7 +142,7 @@ set incsearch
 " Never, ever do 'set showmatch'
 
 " Handle long lines correctly
-set wrap
+" set wrap
 set textwidth=79
 set formatoptions=qrn1
 
@@ -150,4 +158,5 @@ vnoremap <F1> <ESC>
 map <silent><F4> :update<CR>:silent make %.exe<CR>
 
 map <leader>i <C-w>v<C-w>l:open input.txt<CR>
+
 
