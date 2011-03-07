@@ -15,7 +15,8 @@ endif
 " for usaco, cannot end with .out
 map <F8> :w<CR>:!g++ % -g -o a.exe && ./a.exe && cat *.out <CR>
 " omni-completion
-inoremap <Nul> <C-x><C-o>
+""" inoremap <Nul> <C-x><C-o>
+let g:clang_complete_copen = 1
 
 " Don't write backup files
 set nobackup
@@ -110,6 +111,7 @@ set nowritebackup
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
+set expandtab
 
 " Make things better, 
 " according to http://stevelosh.com/blog/2010/09/coming-home-to-vim/
@@ -127,9 +129,6 @@ set noeb
 set ttyfast
 set backspace=indent,eol,start
 
-" Set leader key, originally "g" now it is ","
-let mapleader = ","
-
 " Smart searching
 " nnoremap / /\v
 " vnoremap / /\v
@@ -137,7 +136,7 @@ set ignorecase
 set smartcase
 set gdefault
 set incsearch
-"set hlsearch
+set hlsearch
 
 " Never, ever do 'set showmatch'
 
@@ -159,4 +158,5 @@ map <silent><F4> :update<CR>:silent make %.exe<CR>
 
 map <leader>i <C-w>v<C-w>l:open input.txt<CR>
 
+map <leader>r :%s///<Left>
 
