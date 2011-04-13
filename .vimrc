@@ -1,13 +1,10 @@
-set ai ts=4 sw=4 st=4 noet nu nohls
+set ai ts=2 sw=2 st=2 noet nu nohls
 syntax enable
 filetype plugin indent on
 map <F6> :w<CR>:!g++ % -g && (ulimit -c unlimited; ./a.out < ~/input.txt) <CR>
 map <F5> <F6>
 map <F12> :!gdb ./a.out -c core <CR>
 " team cat-us-trophy vimrc
-set ai ts=4 sw=4 st=4 noet nu nohls
-syntax enable
-filetype plugin indent on
 if has('gui_running')
 	colo pablo
 endif
@@ -16,7 +13,6 @@ endif
 map <F8> :w<CR>:!g++ % -g -o a.exe && ./a.exe && cat *.out <CR>
 " omni-completion
 """ inoremap <Nul> <C-x><C-o>
-let g:clang_complete_copen = 1
 
 " Don't write backup files
 set nobackup
@@ -65,6 +61,7 @@ au FileType python match OverLength /\%81v.\+/
 au FileType python set et
 au FileType python set sta
 au FileType python map <F6> :w<CR>:!python %<CR>
+au FileType python set ts=4 sw=4 st=4
 
 " for javascript
 au FileType javascript map <F6> :w<CR>:!node %<CR>
@@ -91,7 +88,7 @@ filetype plugin indent on
 " Remove compatibility with old versions
 set nocompatible
 
-" Security issues, not sure if needed
+" Security issues
 " set modelines=0
 
 " Better colors
@@ -108,9 +105,9 @@ set nobackup
 set nowritebackup
 
 " Nice tabs, tabs to spaces conversion
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 
 " Make things better, 
@@ -159,4 +156,11 @@ map <silent><F4> :update<CR>:silent make %.exe<CR>
 map <leader>i <C-w>v<C-w>l:open input.txt<CR>
 
 map <leader>r :%s///<Left>
+
+let g:clang_complete_copen = 1
+let g:clang_periodic_quickfix = 0
+let g:clang_hl_errors = 0
+" let g:clang_user_options = "-std=gnu++89"
+map <leader>, <ESC>:call g:ClangUpdateQuickFix()<CR>
+" "let g:clang_complete_auto = 0
 

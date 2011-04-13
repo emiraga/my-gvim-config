@@ -1,10 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/home/emiraga/gh/emiraga/node/test4/logs'
-let g:netrw_dirhist_2='/home/emiraga/gh/emiraga/node/test4/views'
-let g:netrw_dirhist_3='/etc/nginx/sites-available'
-let g:netrw_dirhist_4='/home/emiraga/gae/runwithfriends/templates'
-let g:netrw_dirhist_5='/home/emiraga/gae/isellbooks/stupid_pylint/google/appengine/ext/db'
-let g:netrw_dirhist_6='/home/emiraga/gh/emiraga/wikigraph'
-let g:netrw_dirhist_7='/home/emiraga/cmake/MathFunctions'
-let g:netrw_dirhist_8='/home/emiraga/tmp/valgrind/valgrind-3.6.1/floatprof'
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/emiraga/gh/emiraga/wikigraph/src/tests'
+let g:netrw_dirhist_2='/home/emiraga/gae/sell-books/template'
+let g:netrw_dirhist_3='/home/emiraga/gh/emiraga/wikigraph/src'
+let g:netrw_dirhist_4='/etc/alternatives/xorg_extra_modules'

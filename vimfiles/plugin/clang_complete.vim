@@ -276,6 +276,16 @@ function! s:CallClangForDiagnostics(tempfile)
   endif
 endfunction
 
+function! s:DoAlwaysQuickFix()
+  " Create tempfile name for clang/clang++ executable mode
+  let b:my_changedtick = b:changedtick
+  let l:tempfile = expand('%:p:h') . '/' . localtime() . expand('%:t')
+
+  let l:clang_output = s:CallClangForDiagnostics(l:tempfile)
+
+  call s:ClangQuickFix(l:clang_output, l:tempfile)
+endfunction
+
 function! s:DoPeriodicQuickFix()
   " Don't do any superfluous reparsing.
   if b:my_changedtick == b:changedtick
@@ -334,6 +344,12 @@ function! s:ClangUpdateQuickFix(clang_output, tempfname)
       endif
       continue
     endif
+
+    let l:variadic = match(l:line, '\%(variadic\)')
+    if l:variadic != -1
+      continue
+    endif
+
     let l:pattern = '^\(.*\):\(\d*\):\(\d*\):\(\%({\d\+:\d\+-\d\+:\d\+}\)*\)'
     let l:tmp = matchstr(l:line, l:pattern)
     let l:fname = substitute(l:tmp, l:pattern, '\1', '')

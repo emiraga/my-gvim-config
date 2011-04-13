@@ -1,0 +1,88 @@
+snippet tmock
+	// Copyright 2011 Emir Habul, see file COPYING
+
+	#include "gmock/gmock.h"
+
+	namespace ${1:wikigraph} {
+
+	class MockSystemFile {
+	 public:
+		MOCK_METHOD2(open,  bool(const char *path, const char *mode));
+	};
+
+	}  // namespace $1
+
+snippet thead
+	// Copyright 2011 Emir Habul, see file COPYING
+
+	#ifndef ${1:SRC_WRITERLIB}_H_
+	#define $1_H_
+
+	#include <stddef.h>
+	#include <stdint.h>
+
+	namespace ${2:wikigraph} {
+
+	class ${3:SystemFile} {
+	 public:
+		$3() { }
+		~$3() { }
+	 private:
+		DISALLOW_COPY_AND_ASSIGN(SystemFile);
+	};
+
+	}  // namespace $2
+
+	#endif  // $1_H_
+
+snippet tmain
+	// Copyright 2011 Emir Habul, see file COPYING
+
+	#include "gtest/gtest.h"
+	#include "gmock/gmock.h"
+	int main(int argc, char *argv[]) {
+		::testing::InitGoogleMock(&argc, argv);
+		return RUN_ALL_TESTS();
+	}
+
+snippet ttest
+	// Copyright 2011 Emir Habul, see file COPYING
+
+	#include "gmock/gmock.h"
+	#include "gtest/gtest.h"
+
+	using ::testing::_;
+	using ::testing::Truly;
+	using ::testing::Return;
+	using ::testing::AtLeast;
+	using ::testing::InSequence;
+
+	namespace ${1:wikigraph} {
+
+	TEST(TestBufferedWriter, empty) {
+		MockSystemFile s;
+		EXPECT_CALL(s, close()).Times(AtLeast(1));
+		BufferedWriter<MockSystemFile> b(&s);
+	}
+
+	TEST(TestBufferedWriter, uint) {
+		InSequence seq;
+		MockSystemFile s;
+		EXPECT_CALL(s, write(_, 4, 1)).Times(1).WillOnce(Return(1));
+		EXPECT_CALL(s, close()).Times(AtLeast(1));
+		EXPECT_CALL(s, write(_, 4, kBufferSize)).Times(2)
+			.WillRepeatedly(Return(kBufferSize));
+		BufferedWriter<MockSystemFile> b(&s);
+		b.write_uint(45);
+	}
+
+	bool GraphBasicMatch(const void *p) {
+		return true;
+	}
+
+	TEST(GraphWriter, basic) {
+		EXPECT_CALL(b, write(Truly(GraphBasicMatch), 4, 8));
+	}
+
+	}  // namespace $1
+
