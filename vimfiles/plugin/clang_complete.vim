@@ -93,7 +93,7 @@ let s:plugin_path = escape(expand('<sfile>:p:h'), '\')
 function! s:ClangCompleteInit()
   let l:local_conf = findfile('.clang_complete', '.;')
   let b:clang_user_options = ''
-  if l:local_conf != ''
+  if l:local_conf != '' && filereadable(l:local_conf)
     let l:opts = readfile(l:local_conf)
     for l:opt in l:opts
       " Better handling of absolute path
@@ -164,7 +164,7 @@ function! s:ClangCompleteInit()
     try
       call eval('snippets#' . g:clang_snippets_engine . '#init()')
     catch /^Vim\%((\a\+)\)\=:E117/
-      echom "Snippets engine " . g:clang_snippets_engine . " not found."
+      echoe 'Snippets engine ' . g:clang_snippets_engine . ' not found.'
       let g:clang_snippets = 0
     endtry
   endif
@@ -205,9 +205,9 @@ function! s:ClangCompleteInit()
     if has('python')
       exe s:initClangCompletePython()
     else
-      echoe "clang_complete: No python support available."
-      echoe "Cannot use clang library, using executable"
-      echoe "Compile vim with python support to use libclang"
+      echoe 'clang_complete: No python support available.'
+      echoe 'Cannot use clang library, using executable'
+      echoe 'Compile vim with python support to use libclang'
       let g:clang_use_library = 0
       return
     endif
@@ -276,16 +276,6 @@ function! s:CallClangForDiagnostics(tempfile)
   endif
 endfunction
 
-function! s:DoAlwaysQuickFix()
-  " Create tempfile name for clang/clang++ executable mode
-  let b:my_changedtick = b:changedtick
-  let l:tempfile = expand('%:p:h') . '/' . localtime() . expand('%:t')
-
-  let l:clang_output = s:CallClangForDiagnostics(l:tempfile)
-
-  call s:ClangQuickFix(l:clang_output, l:tempfile)
-endfunction
-
 function! s:DoPeriodicQuickFix()
   " Don't do any superfluous reparsing.
   if b:my_changedtick == b:changedtick
@@ -344,12 +334,6 @@ function! s:ClangUpdateQuickFix(clang_output, tempfname)
       endif
       continue
     endif
-
-    let l:variadic = match(l:line, '\%(variadic\)')
-    if l:variadic != -1
-      continue
-    endif
-
     let l:pattern = '^\(.*\):\(\d*\):\(\d*\):\(\%({\d\+:\d\+-\d\+:\d\+}\)*\)'
     let l:tmp = matchstr(l:line, l:pattern)
     let l:fname = substitute(l:tmp, l:pattern, '\1', '')
@@ -541,7 +525,7 @@ function! ClangComplete(findstart, base)
     endif
 
     if g:clang_use_library == 1
-      python vim.command('let l:res = ' + str(getCurrentCompletions(vim.eval("a:base"))) + '')
+      python vim.command('let l:res = ' + str(getCurrentCompletions(vim.eval('a:base'))))
     else
       let l:res = s:ClangCompleteBinary(a:base)
     endif
@@ -597,7 +581,7 @@ endfunction
 
 function! LaunchCompletion()
   if ShouldComplete()
-    if match(&completeopt, "longest") != -1
+    if match(&completeopt, 'longest') != -1
       return "\<C-X>\<C-U>"
     else
       return "\<C-X>\<C-U>\<C-P>"

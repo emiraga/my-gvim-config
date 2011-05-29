@@ -27,7 +27,7 @@ snippet details
 	ALGO:
 	LANG: C++
 	USER: eemirha1
-	DATE: 	
+	DATE:		
 	*/
 
 snippet equal
@@ -37,18 +37,18 @@ snippet equal
 		return fabs(a-b) < eps || fabs(a-b) < eps * max(fabs(a),fabs(b));
 	}
 
-snippet bigNumInt
+snippet bigum
 	const int B = 10;// If you change this value, then you 
-	                 // will also have to change operator<<.
-	                 // Higher value might produce overflow
-	                 // change to vector<short> to fix that.
+									 // will also have to change operator<<.
+									 // Higher value might produce overflow
+									 // change to vector<short> to fix that.
 	class num : public vector<char>
 	{public:
 		num(){}
 		num(int n)
-	    {
-	        for(;n;n/=B) push_back(n%B);
-	    }
+			{
+					for(;n;n/=B) push_back(n%B);
+			}
 		num(string n)
 		{
 			int down=0,sign=1;
@@ -64,7 +64,7 @@ snippet bigNumInt
 		void norm()
 		{
 			while(!empty()&&!back())
-	            pop_back();
+							pop_back();
 			int r = 0;
 			for(int i=0;i<size();i++)
 			{
@@ -78,7 +78,7 @@ snippet bigNumInt
 	ostream& operator<<(ostream &s, const num &a)
 	{
 		if(!a.size()) return s << '0';
-	    if(a.back()<0)s << '-';
+			if(a.back()<0)s << '-';
 		for(int i = a.size()-1;i>=0;i--)
 			s << char(iabs(a[i])+'0');
 		return s;
@@ -92,14 +92,14 @@ snippet bigNumInt
 	}
 	bool operator!=(const num &a, const num &b)
 	{
-	    return !(a==b);
+			return !(a==b);
 	}
 	bool operator<(const num &a, const num &b)
 	{
-	    if(!a.size() && !b.size())return false;
-	    if(!a.size()) return 0 < b.back();
-	    if(!b.size()) return a.back() < 0;
-	    if(a.back()*b.back()<0)return a.back()<0;
+			if(!a.size() && !b.size())return false;
+			if(!a.size()) return 0 < b.back();
+			if(!b.size()) return a.back() < 0;
+			if(a.back()*b.back()<0)return a.back()<0;
 		if(a.size()!=b.size())return (a.size()<b.size())^(a.back()<0);
 		for(int i=a.size()-1;i>=0;i--)
 			if(a[i]!=b[i])return a[i]<b[i];
@@ -108,9 +108,9 @@ snippet bigNumInt
 	bool operator<=(const num &a, const num &b)
 	{
 	/*    if(!a.size() && !b.size())return true;
-	    if(!a.size()) return 0 <= b.back();
-	    if(!b.size()) return a.back() <= 0;
-	    if(a.back()*b.back()<0)return a.back()<0;
+			if(!a.size()) return 0 <= b.back();
+			if(!b.size()) return a.back() <= 0;
+			if(a.back()*b.back()<0)return a.back()<0;
 		if(a.size()!=b.size())return (a.size()<b.size())^(a.back()<0);
 		for(int i=a.size()-1;i>=0;i--)
 			if(a[i]!=b[i])return a[i]<=b[i];
@@ -119,96 +119,96 @@ snippet bigNumInt
 	}
 	num operator-(const num &a)
 	{
-	    num b(a);
-	    for(int i=0;i<b.size();i++) b[i]=-b[i];
-	    return b;
+			num b(a);
+			for(int i=0;i<b.size();i++) b[i]=-b[i];
+			return b;
 	}
 	num operator-(const num &a, const num &b);
 	num operator+(const num &a, const num &b)
 	{
-	    if(!a.size())return b;
-	    if(!b.size())return a;
-	    if(a.back()*b.back()<0)return a -(-b);
+			if(!a.size())return b;
+			if(!b.size())return a;
+			if(a.back()*b.back()<0)return a -(-b);
 		num c(a);
 		int s = min(a.size(),b.size());
 		for(int i=0;i<s;i++)
-	        c[i]+=b[i];
+					c[i]+=b[i];
 		while(s<b.size())
-	        c.push_back(b[s++]);
+					c.push_back(b[s++]);
 		c.norm();
 		return c;
 	}
 	num operator-(const num &a, const num &b)
 	{
-	    if(!a.size())return -b;
-	    if(!b.size())return a;
-	    if(a.back()*b.back()<0)return a +(-b);
-	    num up=iabs(a),down=iabs(b);
-	    if(up<down)swap(up,down);
-	    for(int i=0;i<down.size();i++)
-	        up[i]-=down[i];
-	    for(int i=0;i<up.size();i++)
-	        for(;up[i]<0;up[i]+=B)
-	            up[i+1]--;
+			if(!a.size())return -b;
+			if(!b.size())return a;
+			if(a.back()*b.back()<0)return a +(-b);
+			num up=iabs(a),down=iabs(b);
+			if(up<down)swap(up,down);
+			for(int i=0;i<down.size();i++)
+					up[i]-=down[i];
+			for(int i=0;i<up.size();i++)
+					for(;up[i]<0;up[i]+=B)
+							up[i+1]--;
 		up.norm();
 		return (a<b)?-up:up;
 	}
 	num operator*(const num &a, const num &b)
 	{
-	    num c;
-	    c.resize(a.size()+b.size());
-	    fill(c.begin(),c.end(),0);
-	    for(int i=0;i<a.size();i++)
-	        for(int j=0;j<b.size();j++)
+			num c;
+			c.resize(a.size()+b.size());
+			fill(c.begin(),c.end(),0);
+			for(int i=0;i<a.size();i++)
+					for(int j=0;j<b.size();j++)
 			{
-	            int r = c[i+j] + int(a[i])*b[j];
+							int r = c[i+j] + int(a[i])*b[j];
 				c[i+j+1] += r/B;
 				c[i+j] = r%B;
 			}
 		c.norm();
-	    return c;
+			return c;
 	}
 	num divByInt(const num &a, int b)
 	{
 		num c(a);
-	    int r=0;
+			int r=0;
 		for(int i=c.size()-1;i>=0;i--)
 		{
-	        c[i] += r*B;
-	        r = c[i] % b;
-	        c[i] /= b;
-	    }
+					c[i] += r*B;
+					r = c[i] % b;
+					c[i] /= b;
+			}
 		c.norm();
 		return c;
 	}
 	num operator/(const num &a, const num &b)
 	{
-	    if(a==0 || b==0) return 0;
+			if(a==0 || b==0) return 0;
 		num c;
 		c.resize(a.size());
-	    num row,bAbs=iabs(b),aAbs=iabs(a);
+			num row,bAbs=iabs(b),aAbs=iabs(a);
 		for(int i=a.size()-1;i>=0;i--)
 		{
-	        row.insert(row.begin(),1,aAbs[i]);
+					row.insert(row.begin(),1,aAbs[i]);
 			row.norm();
-	        for(c[i]=0;bAbs <= row;c[i]++)
-	            row = row - bAbs;
-	    }
+					for(c[i]=0;bAbs <= row;c[i]++)
+							row = row - bAbs;
+			}
 		c.norm();
 		return (a.back()*b.back()<0)?-c:c;
 	}
 	num operator%(const num &a, const num &b)
 	{
-	    if(a==0 || b==0) return 0;
-	    num row,bAbs=iabs(b),aAbs=iabs(a);
+			if(a==0 || b==0) return 0;
+			num row,bAbs=iabs(b),aAbs=iabs(a);
 		for(int i=a.size()-1;i>=0;i--)
 		{
-	        row.insert(row.begin(),1,aAbs[i]);
+					row.insert(row.begin(),1,aAbs[i]);
 			row.norm();
-	        while(bAbs <= row)
-	            row = row - bAbs;
-	    }
-	    return (a.back()<0)?-row:row;
+					while(bAbs <= row)
+							row = row - bAbs;
+			}
+			return (a.back()<0)?-row:row;
 		//return a - (a/b)*b;//unefficient?
 	}
 	num power(const num &m, const num &n)
@@ -275,8 +275,8 @@ snippet bsearchLE
 	int up = end+1;
 	while(down+1 < up)
 	{
-	    int mid = (down+up)/2;
-	    if(f1(mid)) down = mid; else up = mid;
+			int mid = (down+up)/2;
+			if(f1(mid)) down = mid; else up = mid;
 	}
 	assert(down == L);
 
@@ -285,8 +285,8 @@ snippet bsearchGE
 	int up = end;
 	while(down+1 < up)
 	{
-	    int mid = (down+up)/2;
-	    if(f2(mid)) up = mid; else down = mid;
+			int mid = (down+up)/2;
+			if(f2(mid)) up = mid; else down = mid;
 	}
 	assert(down+1 == L);
 

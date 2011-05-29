@@ -243,3 +243,57 @@ snippet sieve_bits
 	inline bool prime( int num ) {
 		return num > 1 && ( num == 2 || ( (num&1) && !on( num ) ) ); 
 	}
+
+snippet karatsuba
+	#ifndef TH
+	#define TH 10
+	#endif
+
+	// ret must be 6 times larger than len
+	// len must be power of two
+	void karatsuba(int *a, int *b, int *ret, int len) {
+		if(len <= TH) {
+			REP(i,2*len) ret[i]=0;
+			REP(i,len) REP(j,len) ret[i+j]+=a[i]*b[j];
+			return;
+		}
+		int m = len/2;
+		int *a0 = a, *a1 = a+m;
+		int *b0 = b, *b1 = b+m;
+		int *asum = ret + 5*len, *bsum=ret+5*len+m;
+		int *x1 = ret, *x2 = ret+len, *x3 = ret+2*len;
+		REP(i,m) { asum[i] = a0[i] + a1[i]; bsum[i] = b0[i] + b1[i]; }
+		karatsuba(a0, b0, x1, m);
+		karatsuba(a1, b1, x2, m);
+		karatsuba(asum,bsum,x3,m);
+		REP(i,len) x3[i] -= x1[i]+x2[i];
+		REP(i,len) ret[i+m] += x3[i];
+	}
+	//  int la = strlen(a_);
+	//  int lb = strlen(b_);
+	//  int len = max(la,lb);
+	//  while(len != (len&-len)) len += len&-len;
+	//  SET(a,0);
+	//  SET(b,0);
+	//  REP(i,la) a[-1-i+la] = a_[i]-'0';
+	//  REP(i,lb) b[-1-i+lb] = b_[i]-'0';
+	//  //REP(i,len) printf("%d ", a[i]); printf("\n");
+	//  //REP(i,len) printf("%d ", b[i]); printf("\n");
+	//  karatsuba(a,b,c,len);
+	//  int carry = 0;
+	//  REP(i,2*len) {
+	//    assert(c[i]>=0);
+	//    int m = carry + c[i];
+	//    c[i] = m%10;
+	//    carry = m/10;
+	//  }
+	//  int pos = 2*len-1;
+	//  for(;carry;pos++) {
+	//    c[pos] = carry%10;
+	//    carry/=10;
+	//  }
+	//  while(c[pos]==0) pos--;
+	//  FORD(i,pos,0) putchar('0'+c[i]);
+	//  if(pos<0)putchar('0');
+	//  printf("\n");
+

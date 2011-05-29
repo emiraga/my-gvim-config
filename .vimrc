@@ -1,7 +1,7 @@
 set ai ts=2 sw=2 st=2 noet nu nohls
 syntax enable
 filetype plugin indent on
-map <F6> :w<CR>:!g++ % -g && (ulimit -c unlimited; ./a.out < ~/input.txt) <CR>
+map <F6> :w<CR>:!g++ % -g -ggdb -O3 && (ulimit -c unlimited; ./a.out < ~/input.txt) <CR>
 map <F5> <F6>
 map <F12> :!gdb ./a.out -c core <CR>
 " team cat-us-trophy vimrc
@@ -10,9 +10,13 @@ if has('gui_running')
 endif
 
 " for usaco, cannot end with .out
-map <F8> :w<CR>:!g++ % -g -o a.exe && ./a.exe && cat *.out <CR>
+map <F8> :w<CR>:!g++ % -g -ggdb -o a.exe && ./a.exe && cat *.out <CR>
 " omni-completion
 """ inoremap <Nul> <C-x><C-o>
+map <F9> :w<CR>:!g++ % -g -ggdb && (ulimit -c unlimited; ./a.out 0) <CR>
+map <F10> :w<CR>:!g++ % -g -ggdb && (ulimit -c unlimited; ./a.out 1) <CR>
+map <F11> :w<CR>:!g++ % -g -ggdb && (ulimit -c unlimited; ./a.out 2) <CR>
+" map <F12> :w<CR>:!g++ % -g -ggdb && (ulimit -c unlimited; ./a.out 3) <CR>
 
 " Don't write backup files
 set nobackup
@@ -157,10 +161,12 @@ map <leader>i <C-w>v<C-w>l:open input.txt<CR>
 
 map <leader>r :%s///<Left>
 
-let g:clang_complete_copen = 1
+let g:clang_complete_copen = 0
 let g:clang_periodic_quickfix = 0
 let g:clang_hl_errors = 0
 " let g:clang_user_options = "-std=gnu++89"
-map <leader>, <ESC>:call g:ClangUpdateQuickFix()<CR>
-" "let g:clang_complete_auto = 0
+" map <leader>, <ESC>:call g:ClangUpdateQuickFix()<CR>
+let g:clang_complete_auto = 0
+"let g:clang_use_library = 1
+"let g:clang_library_path = "/usr/local/lib"
 
